@@ -14,11 +14,14 @@ use App\Http\Controllers\PasswordController;
 Route::post('/login', [AuthController::class, 'login']);  // Public login route
 Route::post('/password/forgot', [PasswordController::class, 'sendResetLinkEmail']);
 Route::post('/password/reset', [PasswordController::class, 'resetPassword']);
+Route::post('/contact-us', [ContactController::class, 'store'])->name('contact.store');
+Route::get('/stats', [StatController::class, 'index'])->name('stats.index');
+Route::get('/projects', [ProjectController::class, 'index'])->name('projects.index');
+Route::get('/reviews', [ReviewController::class, 'index'])->name('reviews.index');
 
 Route::middleware(['auth:api', \App\Http\Middleware\EnsureAcceptJson::class])->group(function () {
     // Admin routes for managing projects
     Route::prefix('projects')->group(function () {
-        Route::get('/', [ProjectController::class, 'index']);   // Get all projects
         Route::get('/{project}', [ProjectController::class, 'show']);  // Get a specific project
         Route::post('/create', [ProjectController::class, 'store']);   // Create a new project
         Route::post('/update/{project}', [ProjectController::class, 'update']);  // Update a project
@@ -30,7 +33,6 @@ Route::middleware(['auth:api', \App\Http\Middleware\EnsureAcceptJson::class])->g
 
     // Admin routes for managing reviews
     Route::prefix('reviews')->group(function () {
-        Route::get('/', [ReviewController::class, 'index']);   // Get all reviews
         Route::get('/{review}', [ReviewController::class, 'show']);  // Get a specific review
         Route::post('/add', [ReviewController::class, 'store']);   // Create a new review
         Route::put('/update/{review}', [ReviewController::class, 'update']);  // Update a review
@@ -39,7 +41,6 @@ Route::middleware(['auth:api', \App\Http\Middleware\EnsureAcceptJson::class])->g
 
     // Admin routes for managing stats
     Route::prefix('stats')->group(function () {
-        Route::get('/', [StatController::class, 'index']);   // Get the stats
         Route::put('/update', [StatController::class, 'update']);   // Update the stats
     });
 
@@ -52,7 +53,3 @@ Route::middleware(['auth:api', \App\Http\Middleware\EnsureAcceptJson::class])->g
 
     Route::post('logout',[AuthController::class, 'logout']); 
 });
-
-// Public route for submitting a contact form
-Route::post('/contact-us', [ContactController::class, 'store']);  // Submit a contact form message
-
