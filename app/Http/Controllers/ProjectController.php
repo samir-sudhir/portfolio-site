@@ -49,14 +49,12 @@ class ProjectController extends Controller
     // Update an existing project
 public function update(Request $request, Project $project)
 {
-    // Validate the incoming request data
     $validated = $request->validate([
         'title' => 'required|string|max:255',
         'description' => 'required|string',
         'image' => 'nullable|image|mimes:jpeg,png,jpg,gif',
     ]);
 
-    // If an image is provided, store it and update the project image path
     if ($request->hasFile('image')) {
         // Delete old image if exists
         if ($project->image) {
@@ -65,14 +63,14 @@ public function update(Request $request, Project $project)
 
         // Store the new image
         $imagePath = $request->file('image')->store('project_images', 'public');
-        $validated['image'] = $imagePath;  // Add image path to validated data
+        $validated['image'] = $imagePath; // Add image path to validated data
     }
 
-    // Update the project with validated data
     $project->update($validated);
 
     return Helper::result('Project updated successfully', 200, $project);
 }
+
 
 
 

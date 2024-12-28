@@ -21,7 +21,7 @@ Route::middleware(['auth:api', \App\Http\Middleware\EnsureAcceptJson::class])->g
         Route::get('/', [ProjectController::class, 'index']);   // Get all projects
         Route::get('/{project}', [ProjectController::class, 'show']);  // Get a specific project
         Route::post('/create', [ProjectController::class, 'store']);   // Create a new project
-        Route::put('/update/{project}', [ProjectController::class, 'update']);  // Update a project
+        Route::post('/update/{project}', [ProjectController::class, 'update']);  // Update a project
         Route::delete('/delete/{project}', [ProjectController::class, 'destroy']);  // Delete a project
     });
 
