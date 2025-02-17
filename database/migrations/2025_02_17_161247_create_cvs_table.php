@@ -11,14 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-       Schema::create('projects', function (Blueprint $table) {
-        $table->id();
-        $table->string('title');
-        $table->text('description');
-        $table->string('image_path');
-        $table->string('category');
-        $table->timestamps();
-    });
+        Schema::create('c_v_s', function (Blueprint $table) {
+            $table->id();
+            $table->string('file_path');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -26,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('projects');
+        Schema::dropIfExists('c_v_s');
     }
 };
