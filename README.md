@@ -58,6 +58,9 @@ DB_PASSWORD=
 # Run migrations
 php artisan migrate
 
+# Link storage folder
+php artisan storage:link
+
 # Start development server
 php artisan serve
 ```
